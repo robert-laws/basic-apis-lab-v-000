@@ -12,12 +12,14 @@ class RepositoriesController < ApplicationController
 
       body = JSON.parse(@res.body)
       if @res.success?
-
+        @repos = body['items']
       else
         @error = body['message']
       end
     rescue Faraday::ConnectionFailed
-
+      @error = "There was a timeout error."
     end
+
+    render 'search'
   end
 end
